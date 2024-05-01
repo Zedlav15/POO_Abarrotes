@@ -1,3 +1,5 @@
+#Proyecto hecho por Salvador, Israel y Francisco
+
 class Product:
     def __init__(self, id, name, price, stock, category, description, supplier):
         self._id = id
