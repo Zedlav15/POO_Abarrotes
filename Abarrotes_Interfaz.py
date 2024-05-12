@@ -55,8 +55,10 @@ class Ventana_Simulador(ctk.CTkToplevel):
             ctk.CTkLabel(new_window, text="Ingresa los detalles del producto").pack(pady=10)
 
             # Botón para regresar a Ventana_Simulador
-            back_button1 = ctk.CTkButton(new_window, text="Regresar a Simulador", command=self.show_simulador)
-            back_button1.pack(pady=5)
+            back_button = ctk.CTkButton(new_window, text="Regresar a Simulador", command=lambda: self.show_simulador(new_window))
+            back_button.pack(pady=5)
+
+            
 
         def open_view_products_window():
 
@@ -67,7 +69,7 @@ class Ventana_Simulador(ctk.CTkToplevel):
             new_window.geometry("300x200")
             ctk.CTkLabel(new_window, text="Lista de productos").pack(pady=10)
 
-            back_button2 = ctk.CTkButton(new_window, text="Regresar a Simulador", command=self.show_simulador)
+            back_button2 = ctk.CTkButton(new_window, text="Regresar a Simulador", command=lambda: self.show_simulador(new_window))
             back_button2.pack(pady=5)
 
         def open_product_info_window():
@@ -79,7 +81,7 @@ class Ventana_Simulador(ctk.CTkToplevel):
             new_window.geometry("300x200")
             ctk.CTkLabel(new_window, text="Detalles del producto seleccionado").pack(pady=10)
 
-            back_button3 = ctk.CTkButton(new_window, text="Regresar a Simulador", command=self.show_simulador)
+            back_button3 = ctk.CTkButton(new_window, text="Regresar a Simulador", command=lambda: self.show_simulador(new_window))
             back_button3.pack(pady=5)            
 
         def open_delete_product_window():
@@ -91,7 +93,7 @@ class Ventana_Simulador(ctk.CTkToplevel):
             new_window.geometry("300x200")
             ctk.CTkLabel(new_window, text="Eliminar un producto").pack(pady=10)
 
-            back_button4 = ctk.CTkButton(new_window, text="Regresar a Simulador", command=self.show_simulador)
+            back_button4 = ctk.CTkButton(new_window, text="Regresar a Simulador", command=lambda: self.show_simulador(new_window))
             back_button4.pack(pady=5)            
 
         # Botones para abrir las ventanas
@@ -115,9 +117,9 @@ class Ventana_Simulador(ctk.CTkToplevel):
         button4.pack(pady=5)
         button4.place(relx=0.5, rely=0.35, anchor=ctk.CENTER)
 
-    # Función para mostrar la ventana Ventana_Simulador nuevamente
-    def show_simulador(self):
-        Ventana_Simulador(self.master, perfil=self.perfil)
+    def show_simulador(self, window_to_close):
+        window_to_close.destroy()  # Cerrar la ventana actual
+        Ventana_Simulador(self.master, perfil=self.perfil)  # Mostrar Ventana_Simulador nuevamente
 
 # Crear la ventana principal y la instancia de la clase VentanaPrincipal
 root = ctk.CTk()
