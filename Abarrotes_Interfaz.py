@@ -1,3 +1,5 @@
+#Proyecto hecho por Salvador, Israel y Francisco
+
 import customtkinter as ctk
 from PIL import Image
 
