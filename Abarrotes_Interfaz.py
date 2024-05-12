@@ -1,3 +1,5 @@
+#Proyecto hecho por Salvador, Israel y Francisco
+
 import customtkinter as ctk
 from PIL import Image
 
@@ -22,6 +24,15 @@ class VentanaPrincipal:
         self.my_label1 = ctk.CTkLabel(self.master, text='© Copyright by Kimi')
         self.my_label1.place(relx=0.5, rely=0.95, anchor=ctk.CENTER)
 
+        button = ctk.CTkButton(master=self.master, text="Iniciar Simulacion", command=self.login, corner_radius=32,
+                               fg_color='#4158D0', hover_color='#7f5af0')
+        button.place(relx=0.5, rely=0.6, anchor=ctk.CENTER)
+
+    def login(self):
+        perfil = self.my_box.get()  # Obtener el perfil seleccionado
+        self.master.destroy()  
+        Ventana_Simulador(perfil=perfil)  # Crear la nueva ventana
+
 class Ventana_Simulador(ctk.CTkToplevel):
     def __init__(self, master=None, perfil=''):
         super().__init__(master)
@@ -31,19 +42,47 @@ class Ventana_Simulador(ctk.CTkToplevel):
         self.Label1 = ctk.CTkLabel(self, text=f'¡Bienvenido, {perfil}!')
         self.Label1.pack()
 
-def login():
-    perfil = app.my_box.get()  # Obtener el perfil seleccionado
-    root.destroy()  
-    Ventana_Simulador(perfil=perfil)  # Crear la nueva ventana
+        # Funciones para abrir diferentes ventanas
+        def open_add_product_window():
+            new_window = ctk.CTkToplevel(self)
+            new_window.title("Agregar Producto")
+            new_window.geometry("300x200")
+            ctk.CTkLabel(new_window, text="Ingresa los detalles del producto").pack(pady=10)
+
+        def open_view_products_window():
+            new_window = ctk.CTkToplevel(self)
+            new_window.title("Ver Productos")
+            new_window.geometry("300x200")
+            ctk.CTkLabel(new_window, text="Lista de productos").pack(pady=10)
+
+        def open_product_info_window():
+            new_window = ctk.CTkToplevel(self)
+            new_window.title("Información del Producto")
+            new_window.geometry("300x200")
+            ctk.CTkLabel(new_window, text="Detalles del producto seleccionado").pack(pady=10)
+
+        def open_delete_product_window():
+            new_window = ctk.CTkToplevel(self)
+            new_window.title("Eliminar Producto")
+            new_window.geometry("300x200")
+            ctk.CTkLabel(new_window, text="Eliminar un producto").pack(pady=10)
+
+        # Botones para abrir las ventanas
+        button1 = ctk.CTkButton(self, text="Agregar Producto", command=open_add_product_window)
+        button1.pack(pady=5)
+
+        button2 = ctk.CTkButton(self, text="Ver productos", command=open_view_products_window)
+        button2.pack(pady=5)
+
+        button3 = ctk.CTkButton(self, text="Información del Producto", command=open_product_info_window)
+        button3.pack(pady=5)
+
+        button4 = ctk.CTkButton(self, text="Eliminar Producto", command=open_delete_product_window)
+        button4.pack(pady=5)
 
 # Crear la ventana principal y la instancia de la clase VentanaPrincipal
 root = ctk.CTk()
 app = VentanaPrincipal(root)
 
-button = ctk.CTkButton(master=root, text="Iniciar Simulacion", command=login, corner_radius=32, fg_color='#4158D0',
-                       hover_color='#7f5af0')
-button.place(relx=0.5, rely=0.6, anchor=ctk.CENTER)
-
 root.mainloop()
 
-#Prueba 1
