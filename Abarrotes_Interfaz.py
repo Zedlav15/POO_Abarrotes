@@ -43,7 +43,6 @@ class Ventana_Simulador(ctk.CTkToplevel):
         self.Label1 = ctk.CTkLabel(self, text=f'¡Bienvenido, {perfil}!')
         self.Label1.pack()
 
-        # Funciones para abrir diferentes ventanas
         def open_add_product_window():
             # Cerrar la ventana actual
             self.destroy()
@@ -51,26 +50,59 @@ class Ventana_Simulador(ctk.CTkToplevel):
             # Abrir una nueva ventana
             new_window = ctk.CTkToplevel(self.master)
             new_window.title("Agregar Producto")
-            new_window.geometry("300x200")
+            new_window.geometry("500x600")
+
+            ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()
             ctk.CTkLabel(new_window, text="Ingresa los detalles del producto").pack(pady=10)
 
-            # Botón para regresar a Ventana_Simulador
-            back_button = ctk.CTkButton(new_window, text="Regresar a Simulador", command=lambda: self.show_simulador(new_window))
+            id_entry = ctk.CTkEntry(new_window)
+            id_entry.pack()
+            id_entry.place(relx=0.5, rely=0.20, anchor=ctk.CENTER)
+            ctk.CTkLabel(new_window, text="ID:").place(relx=0.3, rely=0.20, anchor=ctk.CENTER)
+
+            name_entry = ctk.CTkEntry(new_window)
+            name_entry.pack()
+            name_entry.place(relx=0.5, rely=0.30, anchor=ctk.CENTER)
+            ctk.CTkLabel(new_window, text="Name:").place(relx=0.3, rely=0.30, anchor=ctk.CENTER)
+
+            price_entry = ctk.CTkEntry(new_window)
+            price_entry.pack()
+            price_entry.place(relx=0.5, rely=0.40, anchor=ctk.CENTER)
+            ctk.CTkLabel(new_window, text="Price:").place(relx=0.3, rely=0.40, anchor=ctk.CENTER)
+
+            stock_entry = ctk.CTkEntry(new_window)
+            stock_entry.pack()
+            stock_entry.place(relx=0.5, rely=0.50, anchor=ctk.CENTER)
+            ctk.CTkLabel(new_window, text="Stock:").place(relx=0.3, rely=0.50, anchor=ctk.CENTER)
+
+            category_entry = ctk.CTkEntry(new_window)
+            category_entry.pack()
+            category_entry.place(relx=0.5, rely=0.60, anchor=ctk.CENTER)
+            ctk.CTkLabel(new_window, text="Category:").place(relx=0.3, rely=0.60, anchor=ctk.CENTER)
+
+            description_entry = ctk.CTkEntry(new_window)
+            description_entry.pack()
+            description_entry.place(relx=0.50, rely=0.70, anchor=ctk.CENTER)
+            ctk.CTkLabel(new_window, text="Description:").place(relx=0.28, rely=0.70, anchor=ctk.CENTER)
+
+            back_button = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
             back_button.pack(pady=5)
+            back_button.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)
 
             
-
         def open_view_products_window():
 
             self.destroy()
 
             new_window = ctk.CTkToplevel(self.master)
             new_window.title("Ver Productos")
-            new_window.geometry("300x200")
+            new_window.geometry("500x600")
+            ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()            
             ctk.CTkLabel(new_window, text="Lista de productos").pack(pady=10)
 
-            back_button2 = ctk.CTkButton(new_window, text="Regresar a Simulador", command=lambda: self.show_simulador(new_window))
+            back_button2 = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
             back_button2.pack(pady=5)
+            back_button2.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)
 
         def open_product_info_window():
 
@@ -78,11 +110,13 @@ class Ventana_Simulador(ctk.CTkToplevel):
 
             new_window = ctk.CTkToplevel(self.master)
             new_window.title("Información del Producto")
-            new_window.geometry("300x200")
+            new_window.geometry("500x600")
+            ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()
             ctk.CTkLabel(new_window, text="Detalles del producto seleccionado").pack(pady=10)
 
-            back_button3 = ctk.CTkButton(new_window, text="Regresar a Simulador", command=lambda: self.show_simulador(new_window))
-            back_button3.pack(pady=5)            
+            back_button3 = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
+            back_button3.pack(pady=5)
+            back_button3.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)           
 
         def open_delete_product_window():
 
@@ -90,38 +124,39 @@ class Ventana_Simulador(ctk.CTkToplevel):
 
             new_window = ctk.CTkToplevel(self.master)
             new_window.title("Eliminar Producto")
-            new_window.geometry("300x200")
+            new_window.geometry("500x600")
+            ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()
             ctk.CTkLabel(new_window, text="Eliminar un producto").pack(pady=10)
 
-            back_button4 = ctk.CTkButton(new_window, text="Regresar a Simulador", command=lambda: self.show_simulador(new_window))
-            back_button4.pack(pady=5)            
+            back_button4 = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
+            back_button4.pack(pady=5)    
+            back_button4.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)        
 
         # Botones para abrir las ventanas
         button1 = ctk.CTkButton(self, text="Agregar Producto", command=open_add_product_window, corner_radius=32,
                                fg_color='#4158D0', hover_color='#7f5af0')
         button1.pack(pady=5)
-        button1.place(relx=0.5, rely=0.2, anchor=ctk.CENTER)
+        button1.place(relx=0.5, rely=0.1, anchor=ctk.CENTER)
 
         button2 = ctk.CTkButton(self, text="Ver productos", command=open_view_products_window, corner_radius=32,
                                fg_color='#4158D0', hover_color='#7f5af0')
         button2.pack(pady=5)
-        button2.place(relx=0.5, rely=0.25, anchor=ctk.CENTER)
+        button2.place(relx=0.5, rely=0.15, anchor=ctk.CENTER)
 
         button3 = ctk.CTkButton(self, text="Información del Producto", command=open_product_info_window, corner_radius=32,
                                fg_color='#4158D0', hover_color='#7f5af0')
         button3.pack(pady=5)
-        button3.place(relx=0.5, rely=0.30, anchor=ctk.CENTER)
+        button3.place(relx=0.5, rely=0.20, anchor=ctk.CENTER)
 
         button4 = ctk.CTkButton(self, text="Eliminar Producto", command=open_delete_product_window, corner_radius=32,
                                fg_color='#4158D0', hover_color='#7f5af0')
         button4.pack(pady=5)
-        button4.place(relx=0.5, rely=0.35, anchor=ctk.CENTER)
+        button4.place(relx=0.5, rely=0.25, anchor=ctk.CENTER)
 
     def show_simulador(self, window_to_close):
-        window_to_close.destroy()  # Cerrar la ventana actual
+        window_to_close.destroy()  
         Ventana_Simulador(self.master, perfil=self.perfil)  # Mostrar Ventana_Simulador nuevamente
 
-# Crear la ventana principal y la instancia de la clase VentanaPrincipal
 root = ctk.CTk()
 app = VentanaPrincipal(root)
 
