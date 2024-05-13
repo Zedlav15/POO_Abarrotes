@@ -151,7 +151,7 @@ class Ventana_Simulador(ctk.CTkToplevel):
 
         product = Product(id_val, name_val, price_val, stock_val, category_val, description_val, supplier=supplier_val)
 
-        self.store.add_product(product)
+        self.store.add_product(product)        
 
         # Limpiar los campos de entrada después de agregar el producto
         self.id_entry.delete(0, ctk.END)
@@ -164,7 +164,7 @@ class Ventana_Simulador(ctk.CTkToplevel):
 
         
     def open_view_products_window(self):
-
+        
         self.destroy()
 
         new_window = ctk.CTkToplevel(self.master)
@@ -173,16 +173,9 @@ class Ventana_Simulador(ctk.CTkToplevel):
         ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()            
         ctk.CTkLabel(new_window, text="Lista de productos").pack(pady=10)
 
-        products_info = store.show_products() 
-        products_label = ctk.CTkLabel(new_window, text=products_info)
-        product_names = "\n".join([product.get_name() for product in store.products])        
-
         back_button2 = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
         back_button2.pack(pady=5)
         back_button2.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)
-
-        products_label = ctk.CTkLabel(new_window, text=product_names)
-        products_label.pack()
 
     def open_product_info_window(self):
 
