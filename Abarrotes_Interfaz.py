@@ -173,9 +173,16 @@ class Ventana_Simulador(ctk.CTkToplevel):
         ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()            
         ctk.CTkLabel(new_window, text="Lista de productos").pack(pady=10)
 
+        products_info = store.show_products() 
+        products_label = ctk.CTkLabel(new_window, text=products_info)
+        product_names = "\n".join([product.get_name() for product in store.products])        
+
         back_button2 = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
         back_button2.pack(pady=5)
         back_button2.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)
+
+        products_label = ctk.CTkLabel(new_window, text=product_names)
+        products_label.pack()
 
     def open_product_info_window(self):
 
@@ -201,9 +208,25 @@ class Ventana_Simulador(ctk.CTkToplevel):
         ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()
         ctk.CTkLabel(new_window, text="Eliminar un producto").pack(pady=10)
 
+        self.id_entry = ctk.CTkEntry(new_window)
+        self.id_entry.pack()
+        self.id_entry.place(relx=0.5, rely=0.15, anchor=ctk.CENTER)
+        ctk.CTkLabel(new_window, text="ID:").place(relx=0.3, rely=0.15, anchor=ctk.CENTER)
+
+        back_button1 = ctk.CTkButton(new_window, text="Eliminar",command= self.delete_product)
+        back_button1.pack(pady=5)
+        back_button1.place(relx=0.5, rely=0.85, anchor=ctk.CENTER)
+
         back_button4 = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
         back_button4.pack(pady=5)    
-        back_button4.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)        
+        back_button4.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)
+
+    def delete_product(self):
+        id_val = self.id_entry.get()
+
+        self.store.remove_product(id_val)
+
+        self.id_entry.delete(0, ctk.END)
 
     def show_simulador(self, window_to_close):
         window_to_close.destroy()  
@@ -220,7 +243,26 @@ class Ventana_Simulador2(ctk.CTkToplevel):
         self.Label1 = ctk.CTkLabel(self, text=f'¡Bienvenido, {perfil}!')
         self.Label1.pack()
 
-    
+        self.destroy()
+
+        # Abrir una nueva ventana
+        new_window = ctk.CTkToplevel(self.master)
+        new_window.title("Agregar Producto")
+        new_window.geometry("500x600")
+
+        ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()
+        ctk.CTkLabel(new_window, text="Ingresa los productos del cliente").pack(pady=10)
+
+        self.displaySale = ctk.CTkCanvas(self.master, bg = 'white', width=300, height=400)
+        self.displaySale.place(relx=0, rely=0, relwidth=0.5, relheight=1)
+
+        self.displaySale.create_text(200, 200, text = "Este es un cuadro blanco con texto", fill="black", font=("aria"))
+
+        self.entry = ctk.CTkEntry(self.master)
+        self.entry.place(relx=0.55, rely=0.1, relwidth=0.3)
+
+        self.button = ctk.CTkButton(self.master, text="Agregar")
+        self.button.place(relx=0.55, rely=0.2, relwidth=0.3)
 
 store = Store()
 root = ctk.CTk()
@@ -229,5 +271,4 @@ app = VentanaPrincipal(root, store)
 root.mainloop()
 
 
-# ID - NAME - PRECIO
-#Name
+# ID - NAME - PREC
