@@ -173,8 +173,9 @@ class Ventana_Simulador(ctk.CTkToplevel):
         ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()            
         ctk.CTkLabel(new_window, text="Lista de productos").pack(pady=10)
 
-        products_info = store.show_products() 
-        products_label = ctk.CTkLabel(new_window, text=products_info)
+        product_names = "\n".join([product.get_name() for product in store.products])
+    
+        products_label = ctk.CTkLabel(new_window, text=product_names)
         products_label.pack()
         
 
