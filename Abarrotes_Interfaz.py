@@ -173,6 +173,11 @@ class Ventana_Simulador(ctk.CTkToplevel):
         ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()            
         ctk.CTkLabel(new_window, text="Lista de productos").pack(pady=10)
 
+        product_names = "\n".join([product.get_name() for product in store.products])
+    
+        products_label = ctk.CTkLabel(new_window, text=product_names)
+        products_label.pack()
+
         back_button2 = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
         back_button2.pack(pady=5)
         back_button2.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)
