@@ -1,4 +1,4 @@
-#Proyecto hecho por Salvador, Israel y Francisco 
+#Proyecto hecho por Salvador, Israel y Francisco
 
 import customtkinter as ctk
 from abarrotes import *
