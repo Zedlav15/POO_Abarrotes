@@ -1,7 +1,6 @@
 #Proyecto hecho por Salvador, Israel y Francisco
 
 import customtkinter as ctk
-from abarrotes import *
 from PIL import Image
 
 class VentanaPrincipal:
@@ -35,9 +34,8 @@ class VentanaPrincipal:
         Ventana_Simulador(perfil=perfil)  # Crear la nueva ventana
 
 class Ventana_Simulador(ctk.CTkToplevel):
-    def __init__(self, store, master=None, perfil=''):
+    def __init__(self, master=None, perfil=''):
         super().__init__(master)
-        self.store = store
         self.geometry("1000x800")
         self.title("Simulador de Abarrotes By Team 9")
         self.iconbitmap('images/Logo1.jpg')
@@ -87,29 +85,18 @@ class Ventana_Simulador(ctk.CTkToplevel):
             description_entry.place(relx=0.50, rely=0.70, anchor=ctk.CENTER)
             ctk.CTkLabel(new_window, text="Description:").place(relx=0.28, rely=0.70, anchor=ctk.CENTER)
 
-            back_button = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
+            description_entry = ctk.CTkEntry(new_window)
+            description_entry.pack()
+            description_entry.place(relx=0.50, rely=0.70, anchor=ctk.CENTER)
+            ctk.CTkLabel(new_window, text="Supplier:").place(relx=0.30, rely=0.80, anchor=ctk.CENTER)
+
+            back_button = ctk.CTkButton(new_window, text="Guardar"  )
             back_button.pack(pady=5)
             back_button.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)
 
-        def add_product(self):
-            id_val = id_entry.get()
-            name_val = name_entry.get()
-            price_val = price_entry.get()
-            stock_val = stock_entry.get()
-            category_val = category_entry.get()
-            description_val = description_entry.get()
-
-            product = Product(id_val, name_val, price_val, stock_val, category_val, description_val, supplier = None)
-
-            self.store.add_product(product)
-
-            id_entry.delete(0, ctk.END)
-            name_entry.delete(0, ctk.END)
-            price_entry.delete(0, ctk.END)
-            stock_entry.delete(0, ctk.END)
-            category_entry.delete(0, ctk.END)
-            description_entry.delete(0, ctk.END)
-
+            back_button = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
+            back_button.pack(pady=5)
+            back_button.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)
             
         def open_view_products_window():
 
@@ -178,8 +165,7 @@ class Ventana_Simulador(ctk.CTkToplevel):
         window_to_close.destroy()  
         Ventana_Simulador(self.master, perfil=self.perfil)  # Mostrar Ventana_Simulador nuevamente
 
-store = Store()
 root = ctk.CTk()
-app = VentanaPrincipal(root, store)
+app = VentanaPrincipal(root)
 
 root.mainloop()
