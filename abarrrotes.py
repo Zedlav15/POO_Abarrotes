@@ -71,6 +71,7 @@ class Store:
     def show_products(self):
         for product in self.products:
             print(product.show_info())
+    
 
 class Sale:
     def __init__(self, id, dateTime, products, totalPrice, employee):
