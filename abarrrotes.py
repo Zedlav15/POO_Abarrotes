@@ -69,8 +69,10 @@ class Store:
         self.products = [product for product in self.products if product._id != product_id]
 
     def show_products(self):
+        product_info = ""
         for product in self.products:
-            print(product.show_info())
+            product_info += product.show_info() + "\n\n"
+        return product_info
     
 
 class Sale:
@@ -95,3 +97,4 @@ class BankAccount:
 
     def display_balance(self):
         return f"The current balance is: ${self.balance}"
+    
