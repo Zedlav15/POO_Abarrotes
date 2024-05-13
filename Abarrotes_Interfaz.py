@@ -5,7 +5,8 @@ from abarrrotes import *
 from PIL import Image
 
 class VentanaPrincipal:
-    def __init__(self, master, store):
+    def __init__(self, master):
+        print(f"Ventana_Principal: store is {store}") 
         self.master = master
         self.store = store
         self.master.geometry("500x600+350+20")
@@ -35,9 +36,10 @@ class VentanaPrincipal:
         button2.place(relx=0.5, rely=0.6, anchor=ctk.CENTER)
 
     def login(self):
+        print(f"login: store is {store}") 
         perfil = self.my_box.get()  
         self.master.destroy()  
-        Ventana_Simulador(perfil=perfil, store=self.store)  
+        Ventana_Simulador(perfil=perfil)  
     
     def login2(self):
         perfil = self.my_box.get()  
@@ -45,8 +47,9 @@ class VentanaPrincipal:
         Ventana_Simulador2(perfil=perfil, store=self.store)  
 
 class Ventana_Simulador(ctk.CTkToplevel):
-    def __init__(self, master=None, perfil='', store=None):
+    def __init__(self, master=None, perfil=''):
         super().__init__(master)
+        print(f"Ventana_Simulador: store is {store}") 
         self.geometry("1000x800")
         self.title("Simulador de Abarrotes By Team 9")
         self.iconbitmap('images/Logo1.jpg')
@@ -62,6 +65,7 @@ class Ventana_Simulador(ctk.CTkToplevel):
         self.category_entry = None
         self.description_entry = None
         self.supplier_entry = None
+        self.delete_entry = None
 
         # Botones para abrir las ventanas
         button1 = ctk.CTkButton(self, text="Agregar Producto", command=self.open_add_product_window, corner_radius=32,
@@ -173,6 +177,13 @@ class Ventana_Simulador(ctk.CTkToplevel):
         ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()            
         ctk.CTkLabel(new_window, text="Lista de productos").pack(pady=10)
 
+        products_info = store.show_products() 
+        products_label = ctk.CTkLabel(new_window, text=products_info)
+        product_names = "\n".join([product.get_name() for product in store.products]) 
+
+        products_label = ctk.CTkLabel(new_window, text=product_names)
+        products_label.pack()
+
         back_button2 = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
         back_button2.pack(pady=5)
         back_button2.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)
@@ -201,9 +212,9 @@ class Ventana_Simulador(ctk.CTkToplevel):
         ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()
         ctk.CTkLabel(new_window, text="Eliminar un producto").pack(pady=10)
 
-        self.id_entry = ctk.CTkEntry(new_window)
-        self.id_entry.pack()
-        self.id_entry.place(relx=0.5, rely=0.15, anchor=ctk.CENTER)
+        self.delete_entry = ctk.CTkEntry(new_window)
+        self.delete_entry.pack()
+        self.delete_entry.place(relx=0.5, rely=0.15, anchor=ctk.CENTER)
         ctk.CTkLabel(new_window, text="ID:").place(relx=0.3, rely=0.15, anchor=ctk.CENTER)
 
         back_button1 = ctk.CTkButton(new_window, text="Eliminar",command= self.delete_product)
@@ -215,11 +226,11 @@ class Ventana_Simulador(ctk.CTkToplevel):
         back_button4.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)
 
     def delete_product(self):
-        id_val = self.id_entry.get()
+        delete_entry = self.delete_entry.get()
 
-        self.store.remove_product(id_val)
+        self.store.remove_product(delete_entry)
 
-        self.id_entry.delete(0, ctk.END)
+        self.delete_entry.delete(0, ctk.END)
 
     def show_simulador(self, window_to_close):
         window_to_close.destroy()  
@@ -259,7 +270,7 @@ class Ventana_Simulador2(ctk.CTkToplevel):
 
 store = Store()
 root = ctk.CTk()
-app = VentanaPrincipal(root, store)
+app = VentanaPrincipal(root)
 
 root.mainloop()
 
