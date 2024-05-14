@@ -74,6 +74,17 @@ class Store:
             product_info += product.show_info() + "\n\n"
         return product_info
     
+    def find_product_by_id(self, product_id):
+        for product in self.products:
+            if product.get_id() == product_id:
+                return f"ID: {product.get_id()}\n" \
+                    f"Name: {product.get_name()}\n" \
+                    f"Price: {product.get_price()}\n" \
+                    f"Stock: {product.get_stock()}\n" \
+                    f"Category: {product.get_category()}\n" \
+                    f"Description: {product.get_description()}\n" \
+                    f"Supplier: {product.get_supplier()}"
+        return "Product not found"
 
 class Sale:
     def __init__(self, id, dateTime, products, totalPrice, employee):
@@ -84,7 +95,7 @@ class Sale:
         self.employee = employee
 
     def calculate_total(self):
-        self.totalPrice = sum(product._price for product in self.products)
+        self.totalPrice = sum(product._price for prodauct in self.products)
         return self.totalPrice
 
 class BankAccount:

@@ -66,6 +66,7 @@ class Ventana_Simulador(ctk.CTkToplevel):
         self.description_entry = None
         self.supplier_entry = None
         self.delete_entry = None
+        self.info_product = None
 
         # Botones para abrir las ventanas
         button1 = ctk.CTkButton(self, text="Agregar Producto", command=self.open_add_product_window, corner_radius=32,
@@ -196,9 +197,26 @@ class Ventana_Simulador(ctk.CTkToplevel):
         ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()
         ctk.CTkLabel(new_window, text="Detalles del producto seleccionado").pack(pady=10)
 
+        self.info_product = ctk.CTkEntry(new_window)
+        self.info_product.pack()
+        self.info_product.place(relx=0.5, rely=0.3, anchor=ctk.CENTER)
+
+        search_button = ctk.CTkButton(new_window, text="Buscar", command=self.info_single)
+        search_button.pack(pady=5)
+        search_button.place(relx=0.5, rely=0.4, anchor=ctk.CENTER)
+
+        self.info_display_label = ctk.CTkLabel(new_window, text="")
+        self.info_display_label.pack(pady=20)
+        self.info_display_label.place(relx=0.5, rely=0.5, anchor=ctk.CENTER)
+
         back_button3 = ctk.CTkButton(new_window, text="Regresar al Menu", command=lambda: self.show_simulador(new_window))
         back_button3.pack(pady=5)
-        back_button3.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)           
+        back_button3.place(relx=0.5, rely=0.9, anchor=ctk.CENTER)
+
+    def info_single(self):
+        product_id = self.info_product.get()
+        product_info = self.store.find_product_by_id(product_id)  # Esta función debe estar definida en Store
+        self.info_display_label.configure(text=product_info)
 
     def open_delete_product_window(self):
 
