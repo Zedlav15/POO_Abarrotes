@@ -38,13 +38,13 @@ class VentanaPrincipal:
     def login(self):
         print(f"login: store is {store}") 
         perfil = self.my_box.get()  
-        self.master.destroy()  
-        Ventana_Simulador(perfil=perfil)  
+        self.master.withdraw()
+        Ventana_Simulador(perfil=perfil)
     
     def login2(self):
         perfil = self.my_box.get()  
-        self.master.destroy()  
-        Ventana_Simulador2(perfil=perfil, store=self.store)  
+        self.master.withdraw()  
+        Ventana_Simulador2(perfil=perfil)  
 
 class Ventana_Simulador(ctk.CTkToplevel):
     def __init__(self, master=None, perfil=''):
@@ -253,9 +253,8 @@ class Ventana_Simulador(ctk.CTkToplevel):
         Ventana_Simulador(self.master, perfil=self.perfil)  # Mostrar Ventana_Simulador nuevamente
 
 class Ventana_Simulador2(ctk.CTkToplevel):
-    def __init__(self, master=None, perfil='', store=None):
+    def __init__(self, master=None, perfil=''):
         super().__init__(master)
-        self.geometry("1000x800")
         self.title("Simulador de Abarrotes By Team 9")
         self.iconbitmap('images/Logo1.jpg')
         self.perfil = perfil
@@ -263,26 +262,34 @@ class Ventana_Simulador2(ctk.CTkToplevel):
         self.Label1 = ctk.CTkLabel(self, text=f'¡Bienvenido, {perfil}!')
         self.Label1.pack()
 
-        self.destroy()
-
-        # Abrir una nueva ventana
-        new_window = ctk.CTkToplevel(self.master)
+        # Open a new window for adding products
+        new_window = ctk.CTkToplevel(self)
         new_window.title("Agregar Producto")
         new_window.geometry("500x600")
 
         ctk.CTkLabel(new_window, text=f'¡Bienvenido, {self.perfil}!').pack()
         ctk.CTkLabel(new_window, text="Ingresa los productos del cliente").pack(pady=10)
 
-        self.displaySale = ctk.CTkCanvas(self.master, bg = 'white', width=300, height=400)
-        self.displaySale.place(relx=0, rely=0, relwidth=0.5, relheight=1)
+        # Product Textbox in the middle
+        self.product_textbox = ctk.CTkTextbox(new_window, height=200, width=150)
+        self.product_textbox.pack(side=ctk.LEFT, fill=ctk.Y, expand=True, padx=10, pady=10)
 
-        self.displaySale.create_text(200, 200, text = "Este es un cuadro blanco con texto", fill="black", font=("aria"))
+        self.total_label = ctk.CTkLabel(new_window, text="Cantidad de Productos: 0 | Total: $0")
+        self.total_label.pack(side=ctk.BOTTOM, padx=10, pady=10)
 
-        self.entry = ctk.CTkEntry(self.master)
-        self.entry.place(relx=0.55, rely=0.1, relwidth=0.3)
+        # Frame for other widgets
+        frame = ctk.CTkFrame(new_window)
+        frame.pack(side=ctk.LEFT, padx=10, pady=10)
 
-        self.button = ctk.CTkButton(self.master, text="Agregar")
-        self.button.place(relx=0.55, rely=0.2, relwidth=0.3)
+        # Labels and Entries
+        self.product_id_label = ctk.CTkLabel(frame, text="ID del Producto:")
+        self.product_id_label.pack()
+
+        self.product_id_entry = ctk.CTkEntry(frame)
+        self.product_id_entry.pack()
+
+        self.add_button = ctk.CTkButton(frame, text="Agregar Producto", command=self.add_product_to_list)
+        self.add_button.pack()
 
 store = Store()
 root = ctk.CTk()
